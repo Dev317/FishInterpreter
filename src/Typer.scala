@@ -2,6 +2,10 @@ package Assign3.Typer
 
 import Assign3.Syntax.Syntax._
 import scala.collection.immutable.ListMap
+import scala.annotation.nowarn
+
+@nowarn
+@nowarn("cat=deprecation")
 
 object Typer {
   // ======================================================================

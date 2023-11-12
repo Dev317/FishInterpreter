@@ -69,7 +69,6 @@ object Fish {
     ////////////////////
     def apply(theta: Subst[Expr], e: Expr): Expr = {
       // BEGIN ANSWER
-      println(e)
       e match {
         // Arithmetic expressions
         case Num(n: Integer) => Num(n)
