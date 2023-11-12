@@ -1,0 +1,1 @@
+Result: RecordV(ListMap(res1 -> PairV(NumV(17),NumV(42)), res2 -> NumV(120), res3 -> NumV(1024), res4 -> BoolV(true), res5 -> StringV(klmnopqrst), res6 -> PairV(BoolV(true),BoolV(false))))

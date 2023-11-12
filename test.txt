@@ -1,0 +1,1 @@
+Result: RecordV(ListMap(res1 -> PairV(NumV(42),NumV(17)), res2 -> NumV(5), res3 -> PairV(NumV(2),NumV(10)), res4 -> PairV(StringV(abcz),StringV(abcdefghijklmnopqrstuvwxyz)), res5 -> PairV(StringV(abcdefghijklmnopqrstuvwxyz),PairV(NumV(10),NumV(10))), res6 -> PairV(PairV(NumV(5),NumV(6)),PairV(NumV(6),NumV(5)))))

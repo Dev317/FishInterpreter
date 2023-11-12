@@ -1,0 +1,1 @@
+let proj = \ x . x.l in proj(<l=42>)
