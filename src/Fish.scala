@@ -132,10 +132,7 @@ object Fish {
         case Deref(e1: Expr) => Deref(apply(theta, e1))
         case Assign(e1: Expr, e2: Expr) => Assign(apply(theta, e1), apply(theta, e2))
 
-        case _ => {
-          println(e)
-          sys.error("expression not valid for substitution")
-        }
+        case _ => sys.error("expression not valid for substitution")
       }
       // END ANSWER
     }
