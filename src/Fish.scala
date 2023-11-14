@@ -70,6 +70,8 @@ object Fish {
     def apply(theta: Subst[Expr], e: Expr): Expr = {
       // BEGIN ANSWER
       e match {
+        case v: Value => v
+
         // Arithmetic expressions
         case Num(n: Integer) => Num(n)
         case Plus(e1: Expr, e2: Expr) => Plus(apply(theta, e1), apply(theta, e2))
@@ -161,7 +163,7 @@ object Fish {
 
     // Booleans
     case Bool(b: Boolean) => e
-    case Eq(e1: Expr, e2: Expr) => Eq(desugar(e1),desugar(e2))
+    case Eq(e1: Expr, e2: Expr) => Eq(desugar(e1), desugar(e2))
     case IfThenElse(cond: Expr, e1: Expr, e2: Expr) => IfThenElse(desugar(cond), desugar(e1), desugar(e2))
 
     // Strings
@@ -205,7 +207,7 @@ object Fish {
     case LetPair(x: Variable, y: Variable, e1: Expr, e2: Expr) => {
       val p = generator.genVar("p")
       var theta: Subst[Expr] = ListMap[Variable, Expr](x -> First(Var(p)), y -> Second(Var(p)))
-      Let(p, desugar(e1), desugar(SubstExpr.apply(theta, e2)))
+      Let(p, desugar(e1), SubstExpr.apply(theta, desugar(e2)))
     }
     case LetRecord(xs: Field[Variable], e1: Expr, e2: Expr) => {
       val r = generator.genVar("r")
@@ -213,11 +215,7 @@ object Fish {
       for ((label, x) <- xs) {
         theta = theta + (x -> Proj(Var(r), label))
       }
-
-      Let(r,
-          desugar(e1),
-          desugar(SubstExpr.apply(theta, e2))
-        )
+      Let(r, desugar(e1), SubstExpr.apply(theta, desugar(e2)))
     }
     case Sequ(e1: Expr, e2: Expr) => {
       val x = generator.genVar("x")
@@ -321,7 +319,7 @@ object Fish {
         }
         case RecV(f: Variable, x: Variable, e: Expr) => {
           val v1 = eval(e2)
-          val theta: Subst[Expr] = ListMap[Variable, Expr](x -> v1, f -> e)
+          val theta: Subst[Expr] = ListMap[Variable, Expr](x -> v1, f -> RecV(f: Variable, x: Variable, e: Expr))
           eval(SubstExpr.apply(theta, e))
         }
       }
@@ -393,7 +391,6 @@ object Fish {
     case LetRec(_, _, _, _) => sys.error("Should have been desugared")
     case LetRecord(_, _, _) => sys.error("Should have been desugared")
     case Sequ(_, _) => sys.error("Should have been desugared")
-
   }
 
   // END ANSWER
@@ -403,7 +400,7 @@ object Fish {
   // THE REST OF THIS FILE SHOULD NOT NEED TO BE CHANGED //
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! //
   /////////////////////////////////////////////////////////
-  
+
   // ======================================================================
   // Some simple programs
   // ======================================================================
